@@ -1,0 +1,49 @@
+﻿@model VehicleSellingProject.WebApplication.Models.SellingBranch
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>SellingBranch</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="BNumber" class="control-label"></label>
+                <input asp-for="BNumber" class="form-control" />
+                <span asp-validation-for="BNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BName" class="control-label"></label>
+                <input asp-for="BName" class="form-control" />
+                <span asp-validation-for="BName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BAddress" class="control-label"></label>
+                <input asp-for="BAddress" class="form-control" />
+                <span asp-validation-for="BAddress" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BTel" class="control-label"></label>
+                <input asp-for="BTel" class="form-control" />
+                <span asp-validation-for="BTel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

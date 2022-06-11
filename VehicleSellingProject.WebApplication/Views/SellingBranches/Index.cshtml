@@ -1,0 +1,52 @@
+﻿@model IEnumerable<VehicleSellingProject.WebApplication.Models.SellingBranch>
+
+@{
+    ViewData["Title"] = "فرم اطلاعات نمایندگی فروش";
+}
+
+<h1>فرم اطلاعات نمایندگی فروش</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BTel)
+            </th>
+            <th>
+                <a asp-action="Create" class="btn btn-outline-success"><i class="fa-solid fa-plus"></i></a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BTel)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="text-warning"><i class="fa-solid fa-pen-to-square"></i></a> |
+                <a asp-action="Details" asp-route-id="@item.Id"><i class="fa-solid fa-info"></i></a> |
+                <a asp-action="Delete" asp-route-id="@item.Id" class="text-danger"><i class="fa fa-trash-alt"></i></a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

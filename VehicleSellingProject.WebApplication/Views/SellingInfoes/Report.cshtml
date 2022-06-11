@@ -1,0 +1,66 @@
+﻿@model IEnumerable<VehicleSellingProject.WebApplication.Models.SellingInfo>
+@{
+    ViewData["Title"] = "گزارش فروش";
+}
+
+<h1>گزارش فروش خودرو های سدان</h1>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BuyerTel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle.Brand)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle.BodyType.TypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehicle.SellPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SellingBranch.BAddress)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyerName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuyerTel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.BodyType.TypeName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehicle.SellPrice)
+                <span>$</span>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SellingBranch.BAddress)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+

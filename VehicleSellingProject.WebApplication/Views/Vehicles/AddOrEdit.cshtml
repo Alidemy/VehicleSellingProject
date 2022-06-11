@@ -1,0 +1,149 @@
+﻿@model VehicleSellingProject.WebApplication.Models.Vehicle
+
+@{
+    ViewData["Title"] = "Add or Edit";
+}
+
+<h4>Vehicle Registration</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="AddOrEdit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="Id" type="hidden"  />
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label asp-for="Brand" class="control-label"></label>
+                    <input asp-for="Brand" class="form-control" />
+                    <span asp-validation-for="Brand" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-4">
+                    <label asp-for="Model" class="control-label"></label>
+                    <input asp-for="Model" class="form-control" />
+                    <span asp-validation-for="Model" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label asp-for="BodyTypeId" class="control-label"></label>
+                    <select asp-for="BodyTypeId" class="form-control" asp-items="ViewBag.BodyTypeId" id="parentId"></select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="EngineSizeId" class="control-label"></label>
+                    <select asp-for="EngineSizeId" class="form-control" id="childOneId"></select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="CylinderId" class="control-label"></label>
+                    <select asp-for="CylinderId" class="form-control" id="childThrId"></select>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="DoorId" class="control-label"></label>
+                    <select asp-for="DoorId" class="form-control" id="childTwoId"></select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-3"></div>
+                <div class="form-group col-md-3">
+                    <label asp-for="CostPrice" class="control-label"></label>
+                    <input asp-for="CostPrice" class="form-control" />
+                    <span asp-validation-for="CostPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <label asp-for="SellPrice" class="control-label"></label>
+                    <input asp-for="SellPrice" class="form-control" />
+                    <span asp-validation-for="SellPrice" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-3"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+                </div>
+                    <div class="form-group col-md-6">
+                        <a asp-action="Index" class="btn btn-secondary btn-block"><i class="fa fa-table"></i> Back to List</a>
+                    </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script type="text/javascript">
+        $(document).ready(function () {
+            getEngineSizeBy();
+            getDoorBy();
+            getCylinderBy();
+        })
+        $("#parentId").change(function () {
+            getEngineSizeBy();
+            getDoorBy();
+            getCylinderBy();
+        });
+        var getEngineSizeBy = function () {
+             $.ajax({
+                url: '@Url.Action("GetEngineSizeBy", "Vehicles")',
+                type: 'GET',
+                data: {
+                    bTypeId: $('#parentId').val(),
+                },
+                success: function (data) {
+                    $('#childOneId').find('option').remove()
+                    $('#childOneId').append('<option value="-1">انتخاب حجم موتور</option>')
+                    $(data).each(
+                        function (index, item) {
+                            $('#childOneId').append('<option value="' + item.id + '">' + item.size + ' cc</option>')
+                        });
+                },
+                error: function () {
+                }
+               });
+        }
+        var getDoorBy = function () {
+                 $.ajax({
+                    url: '@Url.Action("GetDoorBy", "Vehicles")',
+                    type: 'GET',
+                    data: {
+                        bTypeId: $('#parentId').val(),
+                    },
+                    success: function (data) {
+                        $('#childTwoId').find('option').remove()
+                        $('#childTwoId').append('<option value="-1">انتخاب تعداد درب</option>')
+                        $(data).each(
+                            function (index, item) {
+                                $('#childTwoId').append('<option value="' + item.id + '">' + item.qty + '</option>')
+                            });
+                    },
+                    error: function () {
+                    }
+                   });
+         }
+        var getCylinderBy = function () {
+                 $.ajax({
+                    url: '@Url.Action("GetCylinderBy", "Vehicles")',
+                    type: 'GET',
+                    data: {
+                        bTypeId: $('#parentId').val(),
+                    },
+                    success: function (data) {
+                        $('#childThrId').find('option').remove()
+                        $('#childThrId').append('<option value="-1">انتخاب تعداد سیلندر</option>')
+                        $(data).each(
+                            function (index, item) {
+                                $('#childThrId').append('<option value="' + item.id + '">' + item.qty + '</option>')
+                            });
+                    },
+                    error: function () {
+                    }
+                   });
+         }
+</script>
+}
